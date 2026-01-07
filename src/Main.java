@@ -7,6 +7,7 @@ public class Main
     public static void main(String[] args)
     {
         ArrayList <String> subjects = new ArrayList<>();
+        ArrayList <String> tasks = new ArrayList<>();
 
         JFrame frame = new JFrame("study planner");
         frame.setSize(400,300);
@@ -32,11 +33,64 @@ public class Main
 
             if (subject.isEmpty())
             {
-                System.out.println("Subject cannot be empty! write something!");
+                JOptionPane.showMessageDialog(frame, "Subject cannot be empty!", "error!", JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
             subjects.add(subject);
             JOptionPane.showMessageDialog(frame,"subject added: " + subject);
+        });
+
+        button2.addActionListener(e ->
+        {
+            String task = JOptionPane.showInputDialog(frame, "add task: ");
+
+            if (task == null)
+            {
+                return;
+            }
+
+            if (task.isEmpty())
+            {
+                JOptionPane.showMessageDialog(frame, "tasks cannot be empty!", "error!", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            tasks.add(task);
+            JOptionPane.showMessageDialog(frame, "task added: " + task);
+        });
+
+        button3.addActionListener(e ->
+        {
+            StringBuilder message = new StringBuilder();
+            message.append("subjects added: ");
+
+            if (subjects.isEmpty())
+            {
+                message.append("none");
+            }
+            else
+            {
+                for (int i=0; i<subjects.size(); i++)
+                {
+                    message.append(i+1).append(". ").append(subjects.get(i)).append("\n");
+                }
+            }
+
+            message.append("tasks added: ");
+            if (tasks.isEmpty())
+            {
+                message.append("none");
+            }
+            else
+            {
+                for (int i=0; i<tasks.size(); i++)
+                {
+                    message.append(i+1).append(". ").append(tasks.get(i)).append("\n");
+                }
+            }
+
+            JOptionPane.showMessageDialog(frame, message.toString(), ("subjects and tasks"), JOptionPane.INFORMATION_MESSAGE);
         });
 
         frame.add(button1);
